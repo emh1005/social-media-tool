@@ -4,6 +4,7 @@ import './index.css';
 import ContentCreationTool from './contentCreationTool';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+// create a theme for the app
 const theme = createTheme({
   palette: {
     primary: {

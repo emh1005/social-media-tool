@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Social Media Content Creation Tool
+The Social Media Content Creation Tool is a React-based web application that allows users to generate templates for social media posts based on the platform and topic of their choice. The application makes use of the OpenAI API to generate the content for the templates.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The web app is deployed online and accessible at https://emh1005.github.io/social-media-tool/.
 
-## Available Scripts
+## Installation:
+To install and use the Social Media Content Creation Tool, follow these steps:
 
-In the project directory, you can run:
+1. Clone the repository from GitHub to your local machine
+2. Install dependencies using `npm install`
+3. Create a `.env` file in the root directory and add your OpenAI API key as `REACT_APP_API_KEY=your-api-key`
+4. Run `npm start` to start the development server and launch the application in a browser
 
-### `npm start`
+## Usage:
+To use the Social Media Content Creation Tool, follow these steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Select a platform (Facebook, Twitter, or Instagram)
+2. Enter a topic for your post in the text field
+3. Click the "Generate Content" button to generate suggested content and hashtags for your post
+4. The generated content template will appear on the right side of the screen
+5. Copy and paste the template into your social media post and customize it as needed
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Code Structure
+The Social Media Content Creation Tool project is built with React and follows best practices for modularizing React code.
 
-### `npm test`
+An overview of the project's file structure is as follows:
+```
+├── package.json
+├── public
+│   ├── index.html
+├── README.md
+└── src
+    ├── contentCreationTool.js
+    ├── index.css
+    ├── index.js
+    ├── reportWebVitals.js
+    └── setupTests.js
+```
+* `public/index.html`: the main HTML file for the project; it contains the root div element where the React app is mounted
+* `src/index.js`: the entry point of the project; it renders the ContentCreationTool component and wraps it in a ThemeProvider component from Material-UI to provide a custom theme
+* `src/ContentCreationTool.js`: This file contains the main logic of the project; it uses state hooks to manage the form data and generated content and defines the UI components using Material-UI
+* `src/index.css`: contains the global styles for the project
+* `package.json`: contains the project's dependencies and scripts
+* `README.md`: contains information about the project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Architecture and Design:
+The Social Media Content Creation Tool is a project that is built using React and styled using the Material-UI library. The code is structured using functional components and utilizes the "useState" hook to maintain form data state for the "platform" and "topic" inputs. The "handleInputChange" function is responsible for updating these variables as the user selects a platform and enters a topic.
 
-### `npm run build`
+The project's UI is constructed using pre-built components from Material-UI, including the "Grid" component for form element layout, the "RadioGroup", "Radio", and "FormControlLabel" components to provide platform selection options, and the "TextField" component is used to capture the user's topic input.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To generate suggested content and hashtags, the "generateContent" function takes the selected platform and topic as inputs and passes them to the OpenAI API. The returned content and hashtags are then displayed on screen.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The Social Media Content Creation Tool provides a user-friendly interface for generating content ideas and hashtags, making it a valuable asset for individuals and businesses seeking to improve their social media presence.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Credits
+This application was created by Emily Huang. It uses the OpenAI GPT-3 API to generate the content templates, and the Material-UI library for styling.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+This project is licensed under the MIT License.

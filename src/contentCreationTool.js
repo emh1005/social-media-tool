@@ -13,31 +13,34 @@ import {
 } from '@mui/material';
 
 const ContentCreationTool = () => {
-  const [platform, setPlatform] = useState('');
-  const [topic, setTopic] = useState('');
+  const [formData, setFormData] = useState({
+    platform: '',
+    topic: ''
+  });
   const [content, setContent] = useState('');
 
   const API_KEY = process.env.REACT_APP_API_KEY;
-  const allElements = platform && topic;
+  const allElements = formData.platform && formData.topic;
 
-  const handlePlatformChange = (event) => {
-    setPlatform(event.target.value);
+  // handle the input change for the form
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData(prevState => ({ ...prevState, [name]: value }));
+    console.log(formData);
   }
 
-  const handleTopic = (event) => {
-    setTopic(event.target.value);
-  }
-
+  // API request body
   const APIBODY = {
     model: 'text-davinci-003',
-    prompt: `Write an ${platform} about ${topic}.`,
+    prompt: `Write an ${formData.platform} about ${formData.topic}.`,
     temperature: 0.7,
     max_tokens: 64,
     top_p: 1.0,
     frequency_penalty: 0.0,
     presence_penalty: 0.0
   }
-  
+
+  // request API for content
   const handleGenerateTemplate = async () => {
     await fetch('https://api.openai.com/v1/completions', {
       method: 'POST',
@@ -49,7 +52,6 @@ const ContentCreationTool = () => {
     }).then(response => {
       return response.json()
     }).then((data) => {
-      console.log(data);
       setContent(data.choices[0].text.trim());
     }).catch((error) => {
       console.error(error);
@@ -61,13 +63,13 @@ const ContentCreationTool = () => {
       <Grid
         container 
         spacing={2}
-        direction="row"
-        alignItems="flex-start"
-        justifyContent="center"
-        height="50vh"
+        direction='row'
+        alignItems='flex-start'
+        justifyContent='center'
+        height='50vh'
         >
         <Grid item xs={12}>
-          <Typography variant="h3" component="h1" sx={{ color: '#633b87'}}>
+          <Typography variant='h3' component='h1' sx={{ color: '#633b87'}}>
             Social Media Content Creation Tool
           </Typography>
         </Grid>
@@ -75,33 +77,46 @@ const ContentCreationTool = () => {
           container
           item
           spacing={2}
-          direction="column"
+          direction='column'
           xs={6}>
           <Grid item>
           <FormControl>
-            <FormLabel id="demo-row-radio-buttons-group-label"> Choose Platform:</FormLabel>
+            <FormLabel> Choose Platform:</FormLabel>
             <RadioGroup
               row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
+              name='platform'
+              value={formData.platform}
+              onChange={handleInputChange}
             >
-              <FormControlLabel value="Facebook post" control={<Radio />} label="Facebook" onChange={handlePlatformChange} />
-              <FormControlLabel value="tweet" control={<Radio />} label="Twitter" onChange={handlePlatformChange}/>
-              <FormControlLabel value="Instagram caption" control={<Radio />} label="Instagram" onChange={handlePlatformChange}/>
+              <FormControlLabel value='Facebook post' control={<Radio />} label='Facebook' />
+              <FormControlLabel value='tweet' control={<Radio />} label='Twitter' />
+              <FormControlLabel value='Instagram caption' control={<Radio />} label='Instagram' />
             </RadioGroup>
           </FormControl>
         </Grid>
         <Grid item>
-          <TextField id="standard-basic" label="Enter a topic for your post" variant="standard" onInput={handleTopic}/>
+          <TextField
+            id='standard-basic'
+            label='Enter a topic for your post' 
+            variant='standard' 
+            name='topic' 
+            value={formData.topic} 
+            onChange={handleInputChange}/>
         </Grid>
         <Grid item>
-          <Button variant="contained" id="gen-button" onClick={handleGenerateTemplate} disabled={!allElements}>Generate Template</Button>
+          <Button
+            id='gen-button'
+            variant='contained' 
+            onClick={handleGenerateTemplate} 
+            disabled={!allElements}>
+              Generate Template
+          </Button>
         </Grid>
         </Grid>
         <Grid 
           container
           item
-          direction="column"
+          direction='column'
           xs={6}
           spacing={2}>
           {content && (
@@ -115,8 +130,8 @@ const ContentCreationTool = () => {
             }}>
             <Grid item>
             <Typography 
-              variant="h6" 
-              component="h2" 
+              variant='h6' 
+              component='h2' 
               sx={{
                 color: '#633b87', 
                 textDecoration: 'underline .65px'
@@ -125,7 +140,7 @@ const ContentCreationTool = () => {
             </Typography>
             </Grid>
             <Grid item>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant='body1' gutterBottom>
                 {content}
             </Typography>
             </Grid>
